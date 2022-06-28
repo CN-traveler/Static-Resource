@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div>
+      <input type="text">
+      <button>go</button>
+    </div>
+    <script>
+      var input = document.getElementsByTagName('input')[0];
+      var button = document.getElementsByTagName('button')[0];
+      input.onkeypress = function() {
+        if(event.keyCode == 13) {
+          button.onclick();
+        }
+      }
+      button.onclick = function() {
+        var url;
+        var href = input.value.trim();
+        try {
+          url = new URL(href);
+        }
+        catch {
+          url = new URL('//' + href, window.location.href);
+        }
+        document.cookie = 'resHost=' + url.host + '; path=/';
+        url.host = window.location.host;
+        window.location.href = url.href;
+      }
+    </script>
+    <style>
+      * {
+        border: 0;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+      }
+      input, button {
+        width: 100%;
+        height: 50%;
+        padding: 20px;
+        display: block;
+        font-size: 20px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+      div {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 80%;
+        margin: auto;
+        height: 126px;
+        position: absolute;
+        outline: 1px solid #000;
+      }
+    </style>
+  </body>
+</html>
