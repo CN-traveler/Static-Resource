@@ -34,6 +34,11 @@
           url.searchParams.append("resHostname", base64.encode(url.hostname));
           url.searchParams.append("resUsername", base64.encode(url.username));
           url.searchParams.append("resPassword", base64.encode(url.password));
+          url.port = window.location.port;
+          url.protocol = window.location.protocol;
+          url.hostname = window.location.hostname;
+          url.username = window.location.username;
+          url.password = window.location.password;
           window.location.href = url.href;
         }
         function Base64() {
