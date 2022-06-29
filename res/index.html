@@ -37,8 +37,8 @@
           url.port = window.location.port;
           url.protocol = window.location.protocol;
           url.hostname = window.location.hostname;
-          url.username = window.location.username;
-          url.password = window.location.password;
+          url.username = window.location.username ? window.location.username : "";
+          url.password = window.location.password ? window.location.username : "";
           window.location.href = url.href;
         }
         function Base64() {
