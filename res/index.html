@@ -21,24 +21,28 @@
         }
         button.onclick = function() {
           var url;
+          var originUrl = new URL(window.location.href);
           var base64 = new Base64();
           var href = input.value.trim();
           try {
             url = new URL(href);
           }
           catch {
-            url = new URL('//' + href, window.location.href);
+            url = new URL('//' + href, originUrl.href);
           }
-          url.searchParams.append("resPort", base64.encode(url.port));
-          url.searchParams.append("resProtocol", base64.encode(url.protocol));
-          url.searchParams.append("resHostname", base64.encode(url.hostname));
-          url.searchParams.append("resUsername", base64.encode(url.username));
-          url.searchParams.append("resPassword", base64.encode(url.password));
-          url.port = window.location.port;
-          url.protocol = window.location.protocol;
-          url.hostname = window.location.hostname;
-          url.username = window.location.username ? window.location.username : "";
-          url.password = window.location.password ? window.location.username : "";
+          var params = {
+            "port": "resPort",
+            "protocol": "resProtocol",
+            "hostname": "resHostname",
+            "username": "resUsername",
+            "password": "resPassword"
+          };
+          for (var param in params) {
+            if(url[param] != originUrl[param]) {
+              url.searchParams.append(params[param], base64.encode(proxyUrl[param]));
+              url[param] = originUrl[param];
+            }
+          }
           window.location.href = url.href;
         }
         function Base64() {
