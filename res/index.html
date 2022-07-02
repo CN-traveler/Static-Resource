@@ -39,7 +39,7 @@
           };
           for (var param in params) {
             if(url[param] != originUrl[param]) {
-              url.searchParams.append(params[param], base64.encode(proxyUrl[param]));
+              url.searchParams.append(params[param], base64.encode(url[param]));
               url[param] = originUrl[param];
             }
           }
